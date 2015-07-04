@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <body>
+    <metal:fill fill-slot="content-core">      
+      <span class="head_1" tal:content="here/getTitle|nothing"/><hr/>
+      Description : <b tal:content="here/getDescription|nothing"/><br/><br/>
+      Author : <span tal:content="here/getAuthor|nothing"/><br/><br/>
+      Publication Date : <span tal:content="here/getPublicationDate|nothing"/><br/><br/>
+      Chapter : <span tal:content="here/getChapter|nothing"/><br/><br/>
+      Publication : <span tal:content="here/getPublication|nothing"/><br/><br/>
+      Editor : <span tal:content="here/getEditor|nothing"/><br/><br/>
+      Translator : <span tal:content="here/getTranslator|nothing"/><br/><br/>
+      Volume No : <span tal:content="here/getVolumeNo|nothing"/><br/><br/>
+      Publication Place : <span tal:content="here/getPublicationPlace|nothing"/><br/><br/>
+      Publisher : <span tal:content="here/getPublisher|nothing"/><br/><br/>
+      Page No : <span tal:content="here/getPageNo|nothing"/><br/><br/>
+      URL : <span tal:content="here/getUrl|nothing"/><br/><br/>
+      URL Date : <span tal:content="here/getUrlDate|nothing"/><br/><br/>
+      <a href=""
+         tal:define="size python:here.getObjSize(here.getFile())"
+         tal:condition="python:not size in '0 kB'"
+         tal:attributes="href string:$here_url/file">
+         <img src="" tal:attributes="src string:${portal_url}/file_icon.gif" alt="" />
+         <tal:block i18n:translate="label_click_to_get_file">
+           Click here to get the file
+         </tal:block>
+      </a>
+    </metal:fill>
+  </body>
+</html>

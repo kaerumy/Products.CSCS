@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <body>
+     <metal:fill fill-slot="content-core"
+         tal:define="allowed_types python:here.portal_atct.getAllowedPortalTypes(populate_for_end_usage=1)">
+    <span tal:define="search_view here/@@pas_search;
+                      results python:test(not site_properties.many_groups, search_view.searchGroups())">
+       <group:repeat tal:repeat="group_info results">
+          <span tal:define="grouptitle python:group_info.get('title');
+                            groupname python:group_info.get('groupid');
+                            group python:here.getGroupByTheId(groupname);
+                            groupMembers group/getGroupMembers|nothing"
+                tal:condition="python:grouptitle in ['Faculty', 'Staff', 'Students']">
+              <img src="images/Student.gif"/>
+              <span class="right_head" tal:content="grouptitle"/>
+              <hr>
+              <member:repeat tal:repeat="member groupMembers">
+                  &nbsp;&nbsp;<img src="images/Student.gif"/>
+
+                  <span tal:condition="python:here.canView(member=str(member))">
+                    <a href="" tal:attributes="href string:$portal_url/Members/$member/cscs_people_view">
+                      <span tal:define="user python:member.getProperty('fullname', str(member))">
+                        <b tal:content="python:test(user.title(), user.title(), str(member))"/>
+                      </span>
+                    </a>
+                  </span>
+
+                  <span tal:condition="python:not here.canView(member=str(member))">
+                    <span tal:define="user python:member.getProperty('fullname', str(member))">
+                      <span tal:condition="python:user.title()">
+                        <b tal:content="python:test(user.title(), user.title(), str(member))"/>
+                      </span>
+                    </span>
+                  </span>
+
+                  <br>
+              </member:repeat>
+              <br>
+          </span>
+       </group:repeat>
+    </span>
+    </metal:fill>
+  </body>
+</html>

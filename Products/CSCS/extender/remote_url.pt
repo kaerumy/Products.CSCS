@@ -1,0 +1,8 @@
+
+<div xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      tal:condition="here/remoteUrl|nothing">
+      <h3>Link to Publication </h3>
+      <a tal:attributes="href here/remoteUrl" tal:content="here/remoteUrl"></a>
+</div>

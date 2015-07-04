@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <body>
+     <metal:fill fill-slot="content-core">
+      <div tal:content="structure python:here.cropImage(here.getImage())"/><br/>
+      <b tal:content="here/Description|nothing"/><br/>
+      <span tal:repeat="obj here/getLibraryServices|nothing">
+        &bull; <a href="#" tal:attributes="href string:${obj/absolute_url}" target="_self" class="item_title" tal:content="obj/Title|nothing"/><br>
+        <div style="margin-left:10px" tal:content="obj/Description|nothing"/><br/>
+      </span>      
+      <div tal:content="structure here/getFullDescription|nothing"/><br/>
+      <a href=""
+         target="_blank"
+         tal:attributes="href here/getURL|nothing"
+         tal:content="here/getURL|nothing"/><br/><br/>
+    </metal:fill>
+  </body>
+</html>

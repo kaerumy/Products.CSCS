@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    >
+
+  <include package="Products.CMFCore" file="permissions.zcml" />a
+
+  <include file="skins.zcml"/>
+
+  <include package=".extender"/>
+
+  <genericsetup:registerProfile
+        name="default"
+        title="Products.CSCS"
+        directory="profiles/default"
+        description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <include package=".upgrade"/>
+
+
+  <adapter name="start" factory=".indexer.cscsevent_start" />
+  <adapter name="end" factory=".indexer.cscsevent_end" />
+
+</configure>

@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <body>
+    <metal:fill fill-slot="content-core">
+    <span tal:define="start_date here/getStartDate|nothing;
+                      end_date here/getEndDate|nothing;">
+      <table width="90%"><tr><td valign="top" width="50%">
+      <div tal:content="structure python:here.cropImage(here.getImage())"/><br/>
+      <b tal:content="here/Description|nothing"/><br/>
+      </td>
+      <td valign="top" align="right" width="50%">
+        <table class="event">
+          <tr><thead><th>When</th><th>What</th></thead></tr>
+          <tr><tbody><td nowrap tal:define="event_type here/getEventType|nothing">
+          <tal:c condition="start_date">
+          <metal:condition tal:condition="python:event_type in ['Class', 'Lecture']">
+            <b>Starts on </b> <span tal:content="python:DateTime(start_date).strftime('%d %B %Y')"/>
+          </metal:condition>
+          </tal:c>
+          <tal:c condition="python:start_date and end_date">
+          <metal:condition tal:condition="python:event_type in ['Holiday', 'Vacation']">
+            <b>Starts on </b><span tal:content="python:DateTime(start_date).strftime('%d %B %Y')"/><br/>
+            <b>Ends on </b><span tal:content="python:DateTime(end_date).strftime('%d %B %Y')"/>
+          </metal:condition>
+          <metal:condition tal:condition="python:here.event_type in ['Conference']">
+            <b>Starts on </b><span tal:content="python:DateTime(start_date).strftime('%d %B %Y %H:%M')"/><br/>
+            <b>Ends on </b><span tal:content="python:DateTime(end_date).strftime('%d %B %Y %H:%M')"/>
+          </metal:condition>
+          </tal:c>
+
+          </td><td><span tal:content="here/Description|nothing"/></td></tbody></tr>
+        </table>
+      </td></tr></table>
+      <div tal:content="structure here/getFullDescription|nothing"/><br/>
+      <a href=""
+         target="_blank"
+         tal:attributes="href here/getURL|nothing"
+         tal:content="here/getURL|nothing"/><br/><br/>
+    </span>
+    </metal:fill>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+            xmlns:browser="http://namespaces.zope.org/browser">
+
+    <include package="archetypes.schemaextender" />
+    <adapter factory=".remote_url.RemoteUrlExtender" />
+
+    <browser:viewlet
+        name="cscs.remoteurl"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        class=".remote_url.RemoteUrlViewlet"
+        permission="zope2.View"
+        />
+
+</configure>

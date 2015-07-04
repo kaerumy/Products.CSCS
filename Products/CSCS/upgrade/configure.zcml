@@ -1,0 +1,32 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <genericsetup:registerProfile
+        name="to3"
+        title="Upgrade profile to v3"
+        directory="profiles/to3"
+        description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+    <genericsetup:upgradeStep
+        title="Upgrade steps to v3"
+        description=""
+        source="*"
+        destination="3"
+        handler=".to3.upgrade"
+        profile="Products.CSCS:default"
+        sortkey="1"/>
+
+    <genericsetup:upgradeStep
+        title="Upgrade steps to v4"
+        description=""
+        source="3"
+        destination="4"
+        handler=".to4.upgrade"
+        profile="Products.CSCS:default"
+        sortkey="1"/>
+
+</configure>
